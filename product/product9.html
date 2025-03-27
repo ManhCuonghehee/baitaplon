@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông Số Điện Thoại - Xiaomi 15 Ultra 5G</title>
+    <title>Thông Số Điện Thoại - Xiaomi 14T Pro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
 </head>
@@ -11,7 +11,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="../index.html">Cửa Hàng Điện Thoại</a>
+            <a class="navbar-brand" href="../index.html">Cửa Hàng Điện Thoại ManhCuong</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,14 +33,14 @@
             <div class="row">
                 <!-- Product Image -->
                 <div class="col-md-6">
-                    <img src="../image/9.jpg" alt="Xiaomi 15 Ultra 5G" class="img-fluid rounded">
+                    <img src="../image/10.jpg" alt="Xiaomi 14T Pro" class="img-fluid rounded">
                 </div>
                 <!-- Product Details -->
                 <div class="col-md-6">
-                    <h2 class="mb-3">Xiaomi 15 Ultra 5G 16GB 512GB</h2>
-                    <p class="text-muted">Giá: <strong>31.990.000 VNĐ</strong></p>
-                    <p><strong>Mô tả:</strong> Xiaomi 15 Ultra 5G với thiết kế cao cấp, hiệu năng mạnh mẽ và camera chuyên nghiệp.</p>
-                    <button class="btn btn-outline-primary add-to-cart" data-id="8">Thêm vào giỏ</button>
+                    <h2 class="mb-3">Xiaomi 14T Pro 12GB 512GB</h2>
+                    <p class="text-muted">Giá: <strong>14.490.000 VNĐ</strong></p>
+                    <p><strong>Mô tả:</strong> Xiaomi 14T Pro với thiết kế hiện đại, hiệu năng mạnh mẽ và camera chất lượng cao.</p>
+                    <button class="btn btn-outline-primary add-to-cart" data-id="9">Thêm vào giỏ</button>
                 </div>
             </div>
             <!-- Specifications -->
@@ -51,15 +51,15 @@
                         <tbody>
                             <tr>
                                 <th>Màn hình</th>
-                                <td>6.73 inch AMOLED, 120Hz</td>
+                                <td>6.67 inch AMOLED, 120Hz</td>
                             </tr>
                             <tr>
                                 <th>Chip</th>
-                                <td>Snapdragon 8 Gen 2</td>
+                                <td>Snapdragon 8+ Gen 1</td>
                             </tr>
                             <tr>
                                 <th>RAM</th>
-                                <td>16GB</td>
+                                <td>12GB</td>
                             </tr>
                             <tr>
                                 <th>Bộ nhớ trong</th>
@@ -67,11 +67,11 @@
                             </tr>
                             <tr>
                                 <th>Camera sau</th>
-                                <td>50MP + 48MP + 48MP</td>
+                                <td>200MP + 8MP + 2MP</td>
                             </tr>
                             <tr>
                                 <th>Camera trước</th>
-                                <td>32MP</td>
+                                <td>20MP</td>
                             </tr>
                             <tr>
                                 <th>Pin</th>
@@ -99,27 +99,40 @@
     <script>
         // Add to Cart Functionality
         document.addEventListener('DOMContentLoaded', () => {
+            const productDetails = {
+                id: '9',
+                name: 'Xiaomi 14T Pro 12GB 512GB',
+                price: 14490000,
+                image: '../image/10.jpg',
+                quantity: 1
+            };
+    
             const addToCartButton = document.querySelector('.add-to-cart');
-
+            const cartCountElement = document.querySelector('.cart-count');
+    
+            // Function to update cart count
+            const updateCartCount = () => {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = totalItems;
+            };
+    
+            // Initialize cart count on page load
+            updateCartCount();
+    
+            // Add to cart button click event
             addToCartButton.addEventListener('click', () => {
-                const product = {
-                    id: addToCartButton.getAttribute('data-id'),
-                    name: 'Xiaomi 15 Ultra 5G 16GB 512GB',
-                    price: 31990000,
-                    quantity: 1,
-                    image: '../image/9.jpg'
-                };
-
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const existingProduct = cart.find(item => item.id === product.id);
-
+                const existingProduct = cart.find(item => item.id === productDetails.id);
+    
                 if (existingProduct) {
                     existingProduct.quantity += 1;
                 } else {
-                    cart.push(product);
+                    cart.push({ ...productDetails });
                 }
-
+    
                 localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
                 alert('Sản phẩm đã được thêm vào giỏ hàng!');
             });
         });

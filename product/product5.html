@@ -11,7 +11,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="../index.html">Cửa Hàng Điện Thoại</a>
+            <a class="navbar-brand" href="../index.html">Cửa Hàng Điện Thoại ManhCuong</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -99,27 +99,40 @@
     <script>
         // Add to Cart Functionality
         document.addEventListener('DOMContentLoaded', () => {
+            const productDetails = {
+                id: '5',
+                name: 'Samsung Galaxy S24 Ultra 12GB 256GB',
+                price: 22990000,
+                image: '../image/6.jpg',
+                quantity: 1
+            };
+    
             const addToCartButton = document.querySelector('.add-to-cart');
-
+            const cartCountElement = document.querySelector('.cart-count');
+    
+            // Function to update cart count
+            const updateCartCount = () => {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountElement.textContent = totalItems;
+            };
+    
+            // Initialize cart count on page load
+            updateCartCount();
+    
+            // Add to cart button click event
             addToCartButton.addEventListener('click', () => {
-                const product = {
-                    id: addToCartButton.getAttribute('data-id'),
-                    name: 'Samsung Galaxy S24 Ultra 12GB 256GB',
-                    price: 22990000,
-                    quantity: 1,
-                    image: '../image/6.jpg'
-                };
-
                 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const existingProduct = cart.find(item => item.id === product.id);
-
+                const existingProduct = cart.find(item => item.id === productDetails.id);
+    
                 if (existingProduct) {
                     existingProduct.quantity += 1;
                 } else {
-                    cart.push(product);
+                    cart.push({ ...productDetails });
                 }
-
+    
                 localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
                 alert('Sản phẩm đã được thêm vào giỏ hàng!');
             });
         });

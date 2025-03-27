@@ -11,7 +11,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="../index.html">Cửa Hàng Điện Thoại</a>
+            <a class="navbar-brand" href="../index.html">Cửa Hàng Điện Thoại ManhCuong</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -96,39 +96,47 @@
     </footer>
 
     <script>
-        // Function to add the product to the cart
         document.addEventListener('DOMContentLoaded', () => {
+            const cartCountElement = document.querySelector('.cart-count');
             const addToCartButton = document.querySelector('.add-to-cart');
-    
-            addToCartButton.addEventListener('click', () => {
-                // Product details
-                const product = {
-                    id: addToCartButton.getAttribute('data-id'),
-                    name: 'iPhone 16 Pro Max 256GB | Chính hãng VN/A',
-                    price: 30990000,
-                    quantity: 1,
-                    image: '../image/2.jpg'
-                };
-    
-                // Get the cart from localStorage or initialize it
-                let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    
-                // Check if the product already exists in the cart
-                const existingProduct = cart.find(item => item.id === product.id);
-                if (existingProduct) {
-                    // If the product exists, increase its quantity
-                    existingProduct.quantity += 1;
-                } else {
-                    // If the product doesn't exist, add it to the cart
-                    cart.push(product);
+
+            // Function to update cart count
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                if (cartCountElement) {
+                    cartCountElement.textContent = totalItems;
                 }
-    
-                // Save the updated cart back to localStorage
-                localStorage.setItem('cart', JSON.stringify(cart));
-    
-                // Notify the user
-                alert('Sản phẩm đã được thêm vào giỏ hàng!');
-            });
+            }
+
+            // Update cart count on page load
+            updateCartCount();
+
+            // Add to cart functionality
+            if (addToCartButton) {
+                addToCartButton.addEventListener('click', () => {
+                    const product = {
+                        id: '1', // Unique ID for this product
+                        name: 'iPhone 16 Pro Max 256GB | Chính hãng VN/A',
+                        price: 30990000,
+                        quantity: 1,
+                        image: '../image/2.jpg'
+                    };
+
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const existingProduct = cart.find(item => item.id === product.id);
+
+                    if (existingProduct) {
+                        existingProduct.quantity += 1;
+                    } else {
+                        cart.push(product);
+                    }
+
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount(); // Update cart count after adding product
+                    alert('Sản phẩm đã được thêm vào giỏ hàng!');
+                });
+            }
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

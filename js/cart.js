@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('confirmPayment').addEventListener('click', () => {
         processPayment();
     });
+    
 });
 
 function loadCartItems() {
